@@ -3,7 +3,8 @@ Christine Kirk GA Project 1- create a game-- Go Fish!
 User Stories / Game Logic 
 
 - This is a two player game with a 52 card deck. 
-- Each player is automatically dealt 7 random cards, the remaining 38 cards remain face down in the "pond". - Players can only see the cards in their hand.
+- Each player is automatically dealt 7 random cards, the remaining 38 cards remain face down in the "pond". 
+- Players can only see the cards in their hand.
 - Each player is trying to get the most "books" a book is 4 cards of the same value. 
 - Each player takes turns back and forth asking for the cards likely to build books. 
 - Each turn the player will review thier hand of cards and ask the other player if they have a card that matches a card in their hand in an effort to create a book. 
