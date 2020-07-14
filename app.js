@@ -3,39 +3,82 @@ console.log("Go Fish ")
 // This is a two player game with a 52 card deck.
 // Array of 1-13 four times each
 // [1,1,1,1,2,2,2,2,3,3,3,3,4,3,3,3...]
+let game = {
+    player: {
+        playerBooks: 0, // if ===7 alert player wins 
+        playerHand: [] // --- displaying cards in hand, write a function that puts the cards in order by 
+        //value numbers only will handle the image of each card in another way
+    },
+    computer: {
+        computerBooks: 0, // if === 7 alert computer wins 
+        computerHand: []
+    },
+    
+    deck: [1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,12,13,13,13,13],
+     // in deck array slice() allows you to grab an element from anywhere in the array if you know where the position is  
+    // cards are number elements
+    // because the deck array is filled in no longer need getCards: function() {},
+    shuffle: function() {
+        for (let i = 0; i < 52; i++) {
+            let randomVal = Math.round(Math.random() * 51 );
+            // temp switches the positions of different cards "placeholder" so the card/value can be used later 
+            let temp = this.deck[randomVal];
+            this.deck[randomVal] = this.deck[i];
+            this.deck[i] = temp;
+        }
+    },
 
-// Each player is automatically dealt 7 random cards, the remaining 38 cards remain face down in the "pond".
-//way to deal the cards 
+    deal: function () {
+        for (let i=0; i<= 6; i++) {
+            // shift() from the deck array and push() to computer and player hand arrays 
+            // Deal button starts the game ->Each player is automatically dealt 7 random cards to the player and to the computerHAND from the deck, 
+            //the remaining 38 cards remain face down in the "pond".
+            // player can see their hand -> can not see computer hand 
+            let card = this.deck.shift();
+            this.player.playerHand.push(card);
+            card = this.deck.shift();
+            this.computer.computerHand.push(card);
+        }
+    },
+    playerTurn: function () {
+        // veiw hand -> click card that you are asking for
+        // check computerHand for that card
+        // shift() move that card to player hand
+        // keep asking until GO fish alert --- or only allow one ask per turn?
+        // is the element I'm asking for in the hand? find() if yes push() and slice() to remove from current array. if undefined alert GO FISH 
+        
+        //find() then push() 
+//         const array1 = [5, 12, 8, 130, 44];
 
-// Players can only see the cards in their hand. way to view the cards in hand for player / CPU 
-//Way to respond “yes” with a card or “go fish” -> go fish automatically lights up or flashes if the player does not have the card being asked for 
+// const found = array1.find(element => element > 10);
+
+// console.log(found);
+// if not found will return undefined -> if undefined alert GO FISH 
+        // or alert GO fish! shift() from pond/ deck moves card into hand -> check for books 
+        // if hand <= 0 turn consists of drawing from deck/ pond shift()
+        // another method 
+    },
+
+    computerTurn: function () {
+        // asks for a card === to the value of a card in their hand
+        // player is prompted give card or tell computer Go Fish (two buttons give card moves card from playerHand to ComputerHand, second button GO Fish)
+    },
+
+    checkBooks: function (playerHand, computerHand) {
+        // // write a function that puts the cards in order by value 
+        //a book is 4 cards of the same value.
+        // once a book is created = 1 point (updated in player/ computer books)
+        // those cards are then removed from player/ computer hand 
+        // update playerBooks/ computerBooks -> if === 7 game is over alert "Player wins the game!"
+        // find all cards of same value (counter variable starts at 0 once it hits 4 removes those cards from array and adds a point)
+    }
+
+}
 
 
-// Each player is trying to get the most "books" a book is 4 cards of the same value.
-// method to check for books // removed books from the hand and place in the "player book pond"
-// Any books that are built are placed face up on the board for everyone to see.
 
-// Each player takes turns back and forth asking for the cards likely to build books.
-
-
-// Each turn the player will review thier hand of cards and ask the other player if they have a 
-// card that matches a card in their hand in an effort to create a book.
-
-
-// If the second player has the card that is being requested it is given to the asking player 
-// and the asking player is allowed to ask for another card. The turn continues until the second player does 
-// not have the card the asking player is asking for. At that point the second player responds "Go Fish" 
-// and the asking player will draw one card from the pond.
-//a method to draw from the pond 
-
-
-
-
-// If a player has 7 books that player wins and the game is over.
-
-
-// If a player runs out of cards in their hand, their turn consists of drawing one card from the pond. //
-// if the player is out of cards other player automatically "go fish"
-
-// If the player has no cards and the pond is empty, the game is over for that player, but 
-// mathematically speaking 7 books will be created before this happens.
+game.shuffle()
+game.deal()
+console.log("Player Hand: ", game.player.playerHand)
+console.log("Computer Hand: ", game.computer.computerHand)
+console.log(game.deck)
