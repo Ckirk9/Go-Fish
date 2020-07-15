@@ -31,14 +31,13 @@ let game = {
             // shift() from the deck array and push() to computer and player hand arrays 
             // Deal button starts the game ->Each player is automatically dealt 7 random cards to the player and to the computerHAND from the deck, 
             //the remaining 38 cards remain face down in the "pond".
-            if (this.deck.length > 14) {
+            // how do I make this only accur at the start of the game / disable button after start?
+            
             let card = this.deck.shift();
             this.player.playerHand.push(card);
             card = this.deck.shift();
             this.computer.computerHand.push(card);
-            } else {
-                alert("OUT OF CARDS, GAME OVER")
-            }
+        
         }    
     },
 
@@ -67,10 +66,22 @@ let game = {
     },
 
     drawACard: function () {
-
+        for (let i=0; i<= 1; i++) {
+            ///need to edit so that only the player or computer draws a card
+           if (this.deck.length > 1) {
+            let card = this.deck.shift();
+            this.player.playerHand.push(card);
+            card = this.deck.shift();
+            this.computer.computerHand.push(card);
+            } else {
+                alert("OUT OF CARDS")
+            }
+        } 
     },
 
     checkBooks: function (playerHand, computerHand) {
+        
+        
         // // write a function that puts the cards in order by value 
         //a book is 4 cards of the same value.
         // once a book is created = 1 point (updated in player/ computer books)
@@ -79,11 +90,15 @@ let game = {
         // find all cards of same value (counter variable starts at 0 once it hits 4 removes those cards from array and adds a point)
     }
 }
+
 let buttonElement = document.querySelector('button')
 buttonElement.addEventListener('click', function () {
+    
     game.deal()
+    document.querySelector('button').disabled = true;
     console.log("Player Hand: ", game.player.playerHand)
     console.log("Computer Hand: ", game.computer.computerHand)
+    console.log(game.deck)
     })
 
 
