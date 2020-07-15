@@ -43,24 +43,21 @@ let game = {
 
     playerTurn: function () {
         // veiw hand -> click card that you are asking for event listener 
-        // check computerHand for that card findIndex()
-        // shift() move that card to player hand
-        // playerHand gets that card and computerHand loses that card 
+        //FUNCTION  is the element I'm asking for in the computer hand? findIndex() if yes push() and splice() to remove from computerHand array. if undefined alert GO FISH 
+        // const array1 = [5, 12, 8, 130, 44];
+        // const found = array1.find(element => element > 10);
+        // console.log(found);
+            
+        // FUNCTION? playerHand gets that card and computerHand loses that card push()
         // if not found will return undefined -> if undefined alert GO FISH 
 
-        // keep asking until GO fish alert (stretch goal)
-        // is the element I'm asking for in the hand? findIndex() if yes push() and slice() to remove from current array. if undefined alert GO FISH 
-        // player can see their hand -> can not see computer hand 
-        //find() then push() 
-//         const array1 = [5, 12, 8, 130, 44];
-
-// const found = array1.find(element => element > 10);
-
-// console.log(found);
-// if not found will return undefined -> if undefined alert GO FISH 
-        // or alert GO fish! shift() from pond/ deck moves card into hand -> check for books 
+        
+        // if not found will return undefined -> if undefined alert GO FISH 
+        // or alert GO fish! shift() from pond/ deck moves card into push() hand -> check for books 
         // if hand <= 0 turn consists of drawing from deck/ pond shift()
         // another method 
+        
+        // keep asking until GO fish alert (stretch goal)
     },
 
     computerTurn: function () {
@@ -82,9 +79,7 @@ let game = {
         } 
     },
 
-    checkBooks: function (playerHand, computerHand) {
-        
-        
+    checkBooks: function (hand) {
         // // write a function that puts the cards in order by value 
         //a book is 4 cards of the same value.
         // once a book is created = 1 point (updated in player/ computer books)
@@ -109,11 +104,19 @@ buttonElement.addEventListener('click', function () {
     console.log(container)
     
     game.player.playerHand.forEach(function (valueOfCard) {
+        // for each function === for each of the elements in the array (playerHand) do "this" display the value of the card
         // show me the cards on the page 
-        let span = document.createElement('span') 
+        let button = document.createElement('button') 
         
-        span.textContent = valueOfCard
-        container.appendChild(span)
+        button.textContent = valueOfCard
+        button.setAttribute('value', valueOfCard)
+        container.appendChild(button)
+        button.addEventListener('click', function(event) {
+            let card = event.target.value  
+           game.computer.computerHand.findIndex(function (computerCardValue){
+               // later computerCardValue will be defined 
+           })
+        })
     })
 })
 
