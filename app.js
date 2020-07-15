@@ -43,10 +43,13 @@ let game = {
 
     playerTurn: function () {
         // veiw hand -> click card that you are asking for event listener 
-        // check computerHand for that card
+        // check computerHand for that card findIndex()
         // shift() move that card to player hand
-        // keep asking until GO fish alert --- or only allow one ask per turn?
-        // is the element I'm asking for in the hand? find() if yes push() and slice() to remove from current array. if undefined alert GO FISH 
+        // playerHand gets that card and computerHand loses that card 
+        // if not found will return undefined -> if undefined alert GO FISH 
+
+        // keep asking until GO fish alert (stretch goal)
+        // is the element I'm asking for in the hand? findIndex() if yes push() and slice() to remove from current array. if undefined alert GO FISH 
         // player can see their hand -> can not see computer hand 
         //find() then push() 
 //         const array1 = [5, 12, 8, 130, 44];
@@ -66,7 +69,7 @@ let game = {
     },
 
     drawACard: function () {
-        for (let i=0; i<= 1; i++) {
+        for (let i=0; i<= 1; i++) { // probably dont need for loop 
             ///need to edit so that only the player or computer draws a card
            if (this.deck.length > 1) {
             let card = this.deck.shift();
@@ -91,6 +94,9 @@ let game = {
     }
 }
 
+
+
+
 let buttonElement = document.querySelector('button')
 buttonElement.addEventListener('click', function () {
     
@@ -99,7 +105,17 @@ buttonElement.addEventListener('click', function () {
     console.log("Player Hand: ", game.player.playerHand)
     console.log("Computer Hand: ", game.computer.computerHand)
     console.log(game.deck)
+    let container = document.querySelector('.playerHand')
+    console.log(container)
+    
+    game.player.playerHand.forEach(function (valueOfCard) {
+        // show me the cards on the page 
+        let span = document.createElement('span') 
+        
+        span.textContent = valueOfCard
+        container.appendChild(span)
     })
+})
 
 
 game.shuffle()
