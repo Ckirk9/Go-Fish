@@ -1,4 +1,3 @@
-console.log("Go Fish ")
 
 // This is a two player game with a 52 card deck.
 // Array of 1-13 four times each
@@ -33,31 +32,12 @@ let game = {
             //the remaining 38 cards remain face down in the "pond".
             // how do I make this only accur at the start of the game / disable button after start?
             
-            let card = this.deck.shift();
-            this.player.playerHand.push(card);
-            card = this.deck.shift();
-            this.computer.computerHand.push(card);
+            let cards = this.deck.shift();
+            this.player.playerHand.push(cards);
+            cards = this.deck.shift();
+            this.computer.computerHand.push(cards);
         
         }    
-    },
-
-    playerTurn: function () {
-        // veiw hand -> click card that you are asking for event listener 
-        //FUNCTION  is the element I'm asking for in the computer hand? findIndex() if yes push() and splice() to remove from computerHand array. if undefined alert GO FISH 
-        // const array1 = [5, 12, 8, 130, 44];
-        // const found = array1.find(element => element > 10);
-        // console.log(found);
-            
-        // FUNCTION? playerHand gets that card and computerHand loses that card push()
-        // if not found will return undefined -> if undefined alert GO FISH 
-
-        
-        // if not found will return undefined -> if undefined alert GO FISH 
-        // or alert GO fish! shift() from pond/ deck moves card into push() hand -> check for books 
-        // if hand <= 0 turn consists of drawing from deck/ pond shift()
-        // another method 
-        
-        // keep asking until GO fish alert (stretch goal)
     },
 
     computerTurn: function () {
@@ -112,14 +92,51 @@ buttonElement.addEventListener('click', function () {
         button.setAttribute('value', valueOfCard)
         container.appendChild(button)
         button.addEventListener('click', function(event) {
-            let card = event.target.value  
-           game.computer.computerHand.findIndex(function (computerCardValue){
-               // later computerCardValue will be defined 
-           })
+            let card = Number(event.target.value)  // this data types returns as a string in HTML -> use Number()
+          let computerHandIndex = game.computer.computerHand.findIndex(function (computerCardValue){
+               
+              return card === computerCardValue
+            })
+            if (computerHandIndex === -1) {
+                alert('GO FISH')
+                // then draw a card 
+            } else {
+                game.computer.computerHand.splice(computerHandIndex, 1);
+                game.player.playerHand.push(card)
+                console.log(game.player.playerHand)
+                console.log(game.computer.computerHand)
+
+            }
         })
+
     })
 })
 
 
 game.shuffle()
 console.log(game.deck)
+
+// function playerTurn() {
+//     // compare card (clicked) to computerHand
+//     for (let i=0; i<= this.computer.computerHand.length; i++)
+//     let selectedCard = 
+
+    // this.computer.computerHand.includes(card)
+
+    // FUNCTION  is the element I'm asking for in the computer hand? findIndex() if yes push() and splice() to remove from computerHand array. if undefined alert GO FISH 
+    
+    // const array1 = [5, 12, 8, 130, 44];
+    // const found = array1.find(element => element > 10);
+    // console.log(found);
+        
+    // FUNCTION? playerHand gets that card and computerHand loses that card push()
+    // if not found will return undefined -> if undefined alert GO FISH 
+
+    
+    // if not found will return undefined -> if undefined alert GO FISH 
+    // or alert GO fish! shift() from pond/ deck moves card into push() hand -> check for books 
+    // if hand <= 0 turn consists of drawing from deck/ pond shift()
+    // another method 
+    
+    // keep asking until GO fish alert (stretch goal)
+//}

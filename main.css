@@ -28,16 +28,8 @@ body {
     transform: translateY(-10px);
     transition: all 0.5s ease-in-out;
   }
-  .computerCard {
-    width: 120px;
-    height: 170px;
-    margin: 25px;
-    transition: all 0.5s ease-in-out;
-  }
-  .computerCard:hover {
-    transform: translateY(-10px);
-    transition: all 0.5s ease-in-out;
-  }
+
+
   
   .booksContainer {
     display: flex;
