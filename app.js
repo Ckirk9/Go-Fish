@@ -60,6 +60,9 @@ let game = {
     },
 
     checkBooks: function (hand) {
+        // compare numbers same value 
+
+
         // // write a function that puts the cards in order by value 
         //a book is 4 cards of the same value.
         // once a book is created = 1 point (updated in player/ computer books)
@@ -69,10 +72,49 @@ let game = {
     }
 }
 
+function askForCard(event) {
+    let card = Number(event.target.value)  // this data types returns as a string in HTML -> use Number()
+    let computerHandIndex = game.computer.computerHand.findIndex(function (computerCardValue){ // this is my playerTurn / ask for cards function
+       
+      return card === computerCardValue
+    })
+    if (computerHandIndex === -1) {
+        alert('GO FISH')
+        // then draw a card 
+        if (game.deck.length > 1) {
+            let card = game.deck.shift();
+            game.player.playerHand.push(card);
+            console.log(game.deck.length)
+            console.log(game.player.playerHand)
+            //update player hand in browser
+            let container = document.querySelector('.playerHand')
+            addCardToHand(card, container)
+        } else {
+                alert("OUT OF CARDS")
+            }
+        } else {
+        let container = document.querySelector('.playerHand')  
+        game.computer.computerHand.splice(computerHandIndex, 1);
+        game.player.playerHand.push(card)
+        console.log(game.player.playerHand)
+        console.log(game.computer.computerHand)
+            // need to add new span with card in playerhand 
+            addCardToHand(card, container)
+    }
+}
+
+function addCardToHand(cardValue, playerHandContainer) {
+    let button = document.createElement('button') 
+    button.textContent = cardValue
+    button.setAttribute('value', cardValue)
+    playerHandContainer.appendChild(button)
+    button.addEventListener('click', askForCard)
+}
 
 
 
-let buttonElement = document.querySelector('button')
+
+let buttonElement = document.querySelector('button') // start button 
 buttonElement.addEventListener('click', function () {
     
     game.deal()
@@ -86,28 +128,7 @@ buttonElement.addEventListener('click', function () {
     game.player.playerHand.forEach(function (valueOfCard) {
         // for each function === for each of the elements in the array (playerHand) do "this" display the value of the card
         // show me the cards on the page 
-        let button = document.createElement('button') 
-        
-        button.textContent = valueOfCard
-        button.setAttribute('value', valueOfCard)
-        container.appendChild(button)
-        button.addEventListener('click', function(event) {
-            let card = Number(event.target.value)  // this data types returns as a string in HTML -> use Number()
-          let computerHandIndex = game.computer.computerHand.findIndex(function (computerCardValue){
-               
-              return card === computerCardValue
-            })
-            if (computerHandIndex === -1) {
-                alert('GO FISH')
-                // then draw a card 
-            } else {
-                game.computer.computerHand.splice(computerHandIndex, 1);
-                game.player.playerHand.push(card)
-                console.log(game.player.playerHand)
-                console.log(game.computer.computerHand)
-
-            }
-        })
+        addCardToHand(valueOfCard, container)
 
     })
 })
