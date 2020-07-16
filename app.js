@@ -1,7 +1,3 @@
-
-// This is a two player game with a 52 card deck.
-// Array of 1-13 four times each
-// [1,1,1,1,2,2,2,2,3,3,3,3,4,3,3,3...]
 let game = {
     player: {
         playerBooks: 0, // if ===7 alert player wins 
@@ -28,40 +24,58 @@ let game = {
     deal: function () {
         for (let i=0; i<= 6; i++) {
             // shift() from the deck array and push() to computer and player hand arrays 
-            // Deal button starts the game ->Each player is automatically dealt 7 random cards to the player and to the computerHAND from the deck, 
-            //the remaining 38 cards remain face down in the "pond".
-            // how do I make this only accur at the start of the game / disable button after start?
-            
             let cards = this.deck.shift();
             this.player.playerHand.push(cards);
             cards = this.deck.shift();
             this.computer.computerHand.push(cards);
-        
+        //check for books 
         }    
     },
 
     computerTurn: function () {
         // asks for a card === to the value of a card in their hand
+        let computerAsk = Math.round(Math.random() * this.computer.computerHand.length)
+        let computerCardValue = this.computer.computerHand[computerAsk]
+        let playerHandIndex = this.player.playerHand.findIndex(function (playerCardValue){ 
+            return computerCardValue === playerCardValue
+          })
         // player is prompted give card or tell computer Go Fish (two buttons give card moves card from playerHand to ComputerHand, second button GO Fish)
-    },
-
-    drawACard: function () {
-        for (let i=0; i<= 1; i++) { // probably dont need for loop 
-            ///need to edit so that only the player or computer draws a card
-           if (this.deck.length > 1) {
-            let card = this.deck.shift();
-            this.player.playerHand.push(card);
-            card = this.deck.shift();
-            this.computer.computerHand.push(card);
+        if (playerHandIndex === -1) {
+            // then draw a card 
+            if (this.deck.length > 1) {
+                let card = this.deck.shift();
+                this.computer.computerHand.push(card);
+                console.log(this.deck.length)
+                console.log("computer turn", this.computer.computerHand)
+                // string interpolation!!!
+                alert(`Computer asked for ${computerCardValue} and went fishing!`)
             } else {
-                alert("OUT OF CARDS")
+                    alert("OUT OF CARDS")
+                }
+            } else {
+                // computerHand gets that card and playerHand loses that card push() 
+                // updated playerHand Container to reflect card that was taken 
+                this.player.playerHand.splice(playerHandIndex, 1);
+                this.computer.computerHand.push(computerCardValue)
+                console.log("after computer turn players hand", this.player.playerHand)
+                console.log("computer turn", this.computer.computerHand)
+                // string interpolation!!!
+                alert(`Computer asked for ${computerCardValue} and took it from your hand!`)
+                // got this from web MDN .removeChild
+                // html element that represents the card the computer took aka node aka "removedCard"
+                let removedCard = document.querySelector(`.card-${computerCardValue}`);
+                console.log(removedCard)
+                console.log(`.card-${computerCardValue}`)
+                if (removedCard.parentNode) {
+                    removedCard.parentNode.removeChild(removedCard);
+                    
+                }
             }
-        } 
-    },
 
+    },
     checkBooks: function (hand) {
         // compare numbers same value 
-
+        // filter () or find() google these bitches
 
         // // write a function that puts the cards in order by value 
         //a book is 4 cards of the same value.
@@ -71,13 +85,15 @@ let game = {
         // find all cards of same value (counter variable starts at 0 once it hits 4 removes those cards from array and adds a point)
     }
 }
-
-function askForCard(event) {
-    let card = Number(event.target.value)  // this data types returns as a string in HTML -> use Number()
-    let computerHandIndex = game.computer.computerHand.findIndex(function (computerCardValue){ // this is my playerTurn / ask for cards function
-       
+// this is my playerTurn / ask for cards function
+function askForCard(event) { 
+    // this data types returns as a string in HTML -> use Number()
+    let card = Number(event.target.value) 
+      //is the element I'm asking for in the computer hand? findIndex() if yes push() and splice() to remove from computerHand array. if undefined alert GO FISH  
+    let computerHandIndex = game.computer.computerHand.findIndex(function (computerCardValue){ 
       return card === computerCardValue
     })
+    // if not found will return -1 -> if -1 alert GO FISH 
     if (computerHandIndex === -1) {
         alert('GO FISH')
         // then draw a card 
@@ -93,71 +109,44 @@ function askForCard(event) {
                 alert("OUT OF CARDS")
             }
         } else {
-        let container = document.querySelector('.playerHand')  
-        game.computer.computerHand.splice(computerHandIndex, 1);
-        game.player.playerHand.push(card)
-        console.log(game.player.playerHand)
-        console.log(game.computer.computerHand)
+            // playerHand gets that card and computerHand loses that card push()
+            let container = document.querySelector('.playerHand')  
+            game.computer.computerHand.splice(computerHandIndex, 1);
+            game.player.playerHand.push(card)
+            console.log(game.player.playerHand)
+            console.log(game.computer.computerHand)
             // need to add new span with card in playerhand 
             addCardToHand(card, container)
-    }
+        }
+        //start computer turn 
+         game.computerTurn()
 }
-
+//takes in the value of one card and appends it to the HTML container being passed
 function addCardToHand(cardValue, playerHandContainer) {
     let button = document.createElement('button') 
     button.textContent = cardValue
+    button.setAttribute('class', `card-${cardValue}`)
     button.setAttribute('value', cardValue)
     playerHandContainer.appendChild(button)
     button.addEventListener('click', askForCard)
 }
-
-
-
-
-let buttonElement = document.querySelector('button') // start button 
+// start button 
+let buttonElement = document.getElementById('start-button') 
 buttonElement.addEventListener('click', function () {
-    
     game.deal()
+    // disable start button after game begins 
     document.querySelector('button').disabled = true;
     console.log("Player Hand: ", game.player.playerHand)
     console.log("Computer Hand: ", game.computer.computerHand)
     console.log(game.deck)
     let container = document.querySelector('.playerHand')
     console.log(container)
-    
+    // for each function === for each of the elements in the array (playerHand) do "this" display the value of the card
     game.player.playerHand.forEach(function (valueOfCard) {
-        // for each function === for each of the elements in the array (playerHand) do "this" display the value of the card
         // show me the cards on the page 
+        // each card needs to have its own cladd 
         addCardToHand(valueOfCard, container)
-
     })
 })
-
-
 game.shuffle()
 console.log(game.deck)
-
-// function playerTurn() {
-//     // compare card (clicked) to computerHand
-//     for (let i=0; i<= this.computer.computerHand.length; i++)
-//     let selectedCard = 
-
-    // this.computer.computerHand.includes(card)
-
-    // FUNCTION  is the element I'm asking for in the computer hand? findIndex() if yes push() and splice() to remove from computerHand array. if undefined alert GO FISH 
-    
-    // const array1 = [5, 12, 8, 130, 44];
-    // const found = array1.find(element => element > 10);
-    // console.log(found);
-        
-    // FUNCTION? playerHand gets that card and computerHand loses that card push()
-    // if not found will return undefined -> if undefined alert GO FISH 
-
-    
-    // if not found will return undefined -> if undefined alert GO FISH 
-    // or alert GO fish! shift() from pond/ deck moves card into push() hand -> check for books 
-    // if hand <= 0 turn consists of drawing from deck/ pond shift()
-    // another method 
-    
-    // keep asking until GO fish alert (stretch goal)
-//}
