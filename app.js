@@ -204,6 +204,5 @@ buttonElement.addEventListener('click', function () {
     game.checkBooks(game.player, 'player')
     game.checkBooks(game.computer)
 })
-
 game.shuffle()
 console.log(game.deck)
