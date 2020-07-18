@@ -26,6 +26,10 @@ let game = {
         this.player.hand = [];
         this.computer.books = 0;
         this.computer.hand = [];
+        let score = document.getElementById('player-books')
+        score.textContent = `${this.player.books}`
+        score = document.getElementById('computer-books')
+        score.textContent = `${this.computer.books}`
         for (let i=0; i<= 6; i++) {
             // shift() from the deck array and push() to computer and player hand arrays 
             let cards = this.deck.shift();
