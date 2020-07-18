@@ -1,47 +1,51 @@
-/* Classes */
+
 body {
     background-color: green;
     color: goldenrod;
 }
+
+
 .logo-container {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    margin: 50px;
-  }
-  .logo {
-    width: 250px;
-  }
-  .container {
-    display: flex;
-    align-items: center;
     justify-content: space-evenly;
-  }
-  
-  .playerCard {
-    width: 120px;
-    height: 170px;
-    margin: 25px;
-    transition: all 0.5s ease-in-out;
-  }
-  .playerCard:hover {
-    transform: translateY(-10px);
-    transition: all 0.5s ease-in-out;
+    margin: 50px;
+    color: goldenrod;
+    font-family: fantasy;
+    font-size: 100px;
+    text-align: center;
+    
   }
 
 
-  
-  .booksContainer {
+  .playerHand {
     display: flex;
     flex-direction: row;
     align-items: center;
-    color: white;
-    font-size: 20px;
+    color: goldenrod;
+    font-size: 70px;
     text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 300;
-    cursor: default;
+
   }
+  button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: goldenrod;
+    font-size: 30px;
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    border: 8px solid goldenrod;
+    border-radius: 12px;
+    border-color: goldenrod;
+    
+  }
+
+
   .playerBooks {
     margin: 30px;
   }
@@ -49,22 +53,26 @@ body {
     margin: 30px;
   }
   
-  .dealButton {
-    /* background-image: url(url for deal button image); */
+  #start-button {
+    float: left;
     background-color: green;
+    color: goldenrod;
+    font-size: 50px;
+    font-family: fantasy;
     width: 245px;
     height: 93px;
     border: none;
     cursor: pointer;
     border-radius: 10px;
     margin: 20px;
-    transition: all 0.5s ease-in-out;
+  }
+
+  .disabled {
+    opacity: 0;
+    cursor: not-allowed;
   }
   
-  .dealButton:hover {
-    transition: all 0.5s ease-in-out;
-    transform: scale(1.1);
-  }
+
   
   /* Default Selectors */
   
@@ -75,5 +83,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
+    font-family: fantasy;
+    color: goldenrod;
   }
   

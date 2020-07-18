@@ -5,21 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Go Fish</title>
     <link rel="stylesheet" href="main.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+  />
 </head>
 <body>
     <div>
     <div class="logo-container">
         <img class="logo" src="" />
-    <h1>GO FISH!</h1>
+    <h1class="animate__animated animate__bounce">GO FISH!</h1>
         </div>
 
 
-    <button id="start-button">Start Game</button>
-    <div class="pond">
-        <p>filler pond and deck go here</p>
-    </div>
+    <button id="start-button">Let's Play!</button>
+    
     <div class="playerHand">
-        <p>display player's hand</p>
+    <div>
+        <button class="drawACard" disabled>Draw a Card</button>
+    </div>  
         
     </div>
     <div class="books">
